@@ -4,16 +4,12 @@
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  padding-right: 1rem;
-  padding-left: 1rem;
 }
 
 @each $key, $value in $theme-screens {
   @media (min-width: $value) {
     .container {
       max-width: $value;
-      padding-right: 2rem;
-      padding-left: 2rem;
     }
   }
 }

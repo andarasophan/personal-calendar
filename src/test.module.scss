@@ -1,6 +1,0 @@
-@use "sass:map";
-@import './styles/variables';
-
-.testModule {
-  color: map.get($theme-colors, "blue-400");
-}

@@ -9,7 +9,7 @@ import { CalendarContext } from '../context';
 import styles from './calendarBody.module.scss';
 import uniqid from 'uniqid';
 
-const Day = ({ day, onAddEvent }) => {
+const Day = ({ day, onAddEvent, onClickDay }) => {
   const { currentDate, currentEvents } = useContext(CalendarContext);
 
   const eventOnDay = useMemo(
@@ -39,7 +39,7 @@ const Day = ({ day, onAddEvent }) => {
         styles.day,
         !isSameMonth(day, currentDate) && styles.outside
       )}
-      onClick={addEvent}
+      onClick={() => onClickDay(day, eventOnDay)}
     >
       <div className={styles.date}>{day.getDate()}</div>
 

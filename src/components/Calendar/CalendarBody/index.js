@@ -9,7 +9,7 @@ import styles from './calendarBody.module.scss';
 import { CalendarContext } from '../context';
 import Week from './Week';
 
-const CalendarBody = () => {
+const CalendarBody = ({ onAddEvent }) => {
   const { currentDate } = useContext(CalendarContext);
 
   const renderWeeks = useMemo(() => {
@@ -17,12 +17,17 @@ const CalendarBody = () => {
     let currentWeekStart = startOfWeek(startOfMonth(currentDate));
     for (let i = 0; i < getWeeksInMonth(currentDate); i++) {
       weeks.push(
-        <Week key={`week-${i}`} weekStart={currentWeekStart} week={i} />
+        <Week
+          key={`week-${i}`}
+          weekStart={currentWeekStart}
+          week={i}
+          onAddEvent={onAddEvent}
+        />
       );
       currentWeekStart = customSetDay(currentWeekStart, 7);
     }
     return weeks;
-  }, [currentDate]);
+  }, [currentDate, onAddEvent]);
 
   return <div className={styles.body}>{renderWeeks}</div>;
 };

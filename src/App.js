@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Calendar from './components/Calendar';
 
-const dummy = {
-  '4-5-2022': [{ name: 'Test' }, { name: 'Test Bla Bla Bla' }],
-  '10-5-2022': [{ name: 'Test123 123' }],
-  '11-5-2022': [
-    { name: 'Test' },
-    { name: 'Testdsfsdfs 234234' },
-    { name: 'Test asda olaskd' },
-  ],
-};
-
 function App() {
+  const [events, setEvents] = useState({});
+
   return (
     <div className="container">
-      <Calendar events={dummy} />
+      <Calendar
+        events={events}
+        onAddEvent={(formattedDate, payload) => {
+          setEvents((prev) => ({
+            ...prev,
+            [formattedDate]: [...(prev?.[formattedDate] ?? []), payload],
+          }));
+        }}
+      />
     </div>
   );
 }

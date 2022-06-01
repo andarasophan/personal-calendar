@@ -25,6 +25,13 @@ function App() {
           });
           dispatch({ type: SET_MODAL, payload: true });
         }}
+        onChangeMonth={() => {
+          window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth',
+          });
+        }}
       />
       <Modal
         open={openModal}

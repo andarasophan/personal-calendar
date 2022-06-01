@@ -10,16 +10,21 @@ import variables from '../../styles/_variables.scss';
 import useWindowSize from '../../hooks/useWindowSize';
 import { EDays } from '../../utils/enums/EDays';
 
-const CalendarHeader = () => {
+const CalendarHeader = ({ onChangeMonth }) => {
   const { currentDate, setCurrentDate } = useContext(CalendarContext);
   const { width } = useWindowSize();
+
+  const handleOnChange = (value) => {
+    setCurrentDate(value);
+    if (typeof onChangeMonth === 'function') onChangeMonth(value);
+  };
 
   return (
     <div className={styles.header}>
       <div className={styles.control}>
         <Button
           className={styles.todayBtn}
-          onClick={() => setCurrentDate(new Date())}
+          onClick={() => handleOnChange(new Date())}
         >
           Today
         </Button>
@@ -27,7 +32,7 @@ const CalendarHeader = () => {
           <div className={styles.btnWrapper}>
             <Button
               className={styles.arrowBtn}
-              onClick={() => setCurrentDate(customSetMonth(currentDate, -1))}
+              onClick={() => handleOnChange(customSetMonth(currentDate, -1))}
             >
               <span>
                 <SVG
@@ -39,7 +44,7 @@ const CalendarHeader = () => {
             </Button>
             <Button
               className={styles.arrowBtn}
-              onClick={() => setCurrentDate(customSetMonth(currentDate, 1))}
+              onClick={() => handleOnChange(customSetMonth(currentDate, 1))}
             >
               <span>
                 <SVG

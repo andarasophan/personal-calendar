@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '../../components/Button';
 import SVG from '../../components/SVG';
-import Avatar from './Avatar';
+import Invitee from '../templates/Invitee';
 import styles from './list.module.scss';
 
 const Event = ({
@@ -35,9 +35,9 @@ const Event = ({
           <span className={styles.icon}>
             <SVG width="100%" height="100%" src="/assets/svg/User.svg" />
           </span>
-          <div className={styles.users}>
+          <div className={styles.invitees}>
             {invitees.map((el, i) => (
-              <Avatar key={i} email={el} />
+              <Invitee key={i} email={el.email} />
             ))}
           </div>
         </div>

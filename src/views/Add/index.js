@@ -7,13 +7,15 @@ import Header from '../templates/Header';
 import Footer from '../templates/Footer';
 import { store } from '../../store/store';
 import { ADD_EVENT, SET_MODAL, SET_STEP } from '../../store/actionTypes';
-import TextField from '../../components/TextField';
+import Form from '../templates/Form';
 
 const generateUniqColor = (dep = []) => {
   const result = darkColorGenerator();
   if (dep.some(({ color }) => color === result)) generateUniqColor();
   return result;
 };
+
+const FormID = 'createEvent';
 
 const Add = () => {
   const {
@@ -26,7 +28,7 @@ const Add = () => {
     return events?.[customDateFormat(selectedDate)] ?? [];
   }, [events, selectedDate]);
 
-  const addEvent = () => {
+  const handleOnSubmit = ({ name, invitees }) => {
     // only 3 events are allowed
     if (eventsOnDate.length >= 3) return;
 
@@ -35,10 +37,10 @@ const Add = () => {
       formattedDate: customDateFormat(selectedDate),
       payload: {
         id: uniqid(),
-        name: 'test asdast sdasfq 12312312dasdasd',
+        name,
         color: generateUniqColor(eventsOnDate),
         time: '11.00 - 14.00',
-        invitees: ['andara@mail.com', 'diogojota@mail.com'],
+        invitees,
       },
     });
     // TODO handle on middleware SET STEP
@@ -56,10 +58,19 @@ const Add = () => {
         backButtonProps={{ disabled: !eventsOnDate.length }}
       />
       <div className={styles.addContent}>
-        <TextField label="Date" readOnly value="19-02-2012" />
-        <TextField label="Title" />
+        <Form
+          onSubmit={handleOnSubmit}
+          formId={FormID}
+          selectedDate={selectedDate}
+        />
       </div>
-      <Footer buttonTitle="Save" onClick={addEvent} />
+      <Footer
+        buttonTitle="Save"
+        buttonProps={{
+          form: FormID,
+          type: 'submit',
+        }}
+      />
     </div>
   );
 };

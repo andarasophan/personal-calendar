@@ -1,0 +1,92 @@
+@use "sass:map";
+@import '../../styles/variables';
+
+.formGroup {
+  .formControl {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .formLine {
+      background-color: map.get($theme-colors, "gray-700");
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      transition: background-color 300ms ease-in-out;
+      height: 1px;
+
+      &.disabled {
+        background-color: map.get($theme-colors, "gray-300");
+      }
+    }
+    
+    .inputWrapper {
+      position: relative;
+      flex: 1 1 0%;
+      input {
+        font-size: 1.125rem;
+        outline: none;
+        background: none;
+        padding: 0;
+        width: 100%;
+        padding: 1rem 0;
+        font-family: inherit;
+        color: map.get($theme-colors, "gray-800");
+        border: none;
+
+        &::placeholder {
+          color: map.get($theme-colors, "gray-500");
+          transition: opacity 300ms ease-in-out;
+          opacity: 0;
+        }
+        &:focus {
+          &::placeholder {
+            opacity: 1;
+          }
+        }
+  
+        &:focus ~ label, &:not(:placeholder-shown) ~ label {
+          color: map.get($theme-colors, "gray-500");
+          transform: translateY(0) scale(.7);
+        }
+
+        &:read-only {
+          color: map.get($theme-colors, "gray-400");
+
+          ~ label {
+            color: map.get($theme-colors, "gray-300");
+          }
+        }
+      }
+    }
+    label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      font-size: 1.125rem;
+      width: 100%;
+      cursor: text;
+      color: map.get($theme-colors, "gray-700");
+      transition: color 300ms ease-in-out, transform 300ms ease-in-out;
+      transform: translateY(20px);
+      transform-origin: 0 0;
+    }
+  }
+
+  .helperText {
+    display: block;
+    margin-top: .5rem;
+    font-size: .875rem;
+  }
+
+  &.error {
+    .formControl .formLine {
+      background-color: map.get($theme-colors, "red-400");
+    }
+    .helperText {
+      color: map.get($theme-colors, "red-400");
+    }
+  }
+}

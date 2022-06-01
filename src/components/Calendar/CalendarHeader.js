@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { EMonth } from '../../utils/enums/EMonth';
-import { getBpNumber } from '../../utils/helpers/BreakpointHelper';
+import { getBpNumber } from '../../utils/helpers/BreakpointHelpers';
 import { customSetMonth } from '../../utils/helpers/DateHelpers';
 import Button from '../Button';
 import SVG from '../SVG';

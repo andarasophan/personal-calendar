@@ -6,4 +6,15 @@
   box-shadow: 0px 24px 38px 3px rgba(map.get($theme-colors, "black"),.14),0px 9px 46px 8px rgba(map.get($theme-colors, "black"),.12),0px 11px 15px -7px rgba(map.get($theme-colors, "black"),.2);
   border-radius: .5rem;
   overflow: hidden;
+
+  .addContent {
+    width: calc(100vw - 2rem);
+    max-height: calc(100vh - 10rem);
+    padding: 1rem;
+    
+    @media (min-width: map.get($theme-screens, "md")) {
+      padding: 1rem 2rem;
+      width: 500px;
+    }
+  }
 }

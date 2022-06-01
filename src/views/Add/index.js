@@ -7,6 +7,7 @@ import Header from '../templates/Header';
 import Footer from '../templates/Footer';
 import { store } from '../../store/store';
 import { ADD_EVENT, SET_MODAL, SET_STEP } from '../../store/actionTypes';
+import TextField from '../../components/TextField';
 
 const generateUniqColor = (dep = []) => {
   const result = darkColorGenerator();
@@ -54,9 +55,10 @@ const Add = () => {
         onBack={handleOnBack}
         backButtonProps={{ disabled: !eventsOnDate.length }}
       />
-      <p style={{ padding: '5rem', textAlign: 'center' }}>
-        this will be the form
-      </p>
+      <div className={styles.addContent}>
+        <TextField label="Date" readOnly value="19-02-2012" />
+        <TextField label="Title" />
+      </div>
       <Footer buttonTitle="Save" onClick={addEvent} />
     </div>
   );

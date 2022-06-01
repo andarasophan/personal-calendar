@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useMemo } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { SwitchTransition } from 'react-transition-group';
+import { store } from '../store/store';
 import Add from './Add';
 import List from './List';
 import styles from './views.module.scss';
 
-const Views = ({
-  step,
-  setStep,
-  events,
-  selectedDate,
-  onAddEvent,
-  onClose,
-  onDeleteEvent,
-}) => {
+const Views = () => {
+  const {
+    state: { step },
+  } = useContext(store);
   const [previousStep, setPreviousStep] = useState(0);
+
+  const renderView = useMemo(() => {
+    /**
+     * step
+     * 0 => list
+     * 1 => add
+     * 2 => edit
+     */
+    if (step === 2) return <div>edit</div>;
+    if (step === 1) return <Add />;
+    return <List />;
+  }, [step]);
 
   return (
     <SwitchTransition mode="out-in">
@@ -34,24 +42,7 @@ const Views = ({
         }}
         onExited={() => setPreviousStep(step)}
       >
-        {step === 0 ? (
-          <List
-            onClose={onClose}
-            events={events}
-            selectedDate={selectedDate}
-            onClickFooter={() => setStep(1)}
-            onDeleteEvent={onDeleteEvent}
-          />
-        ) : (
-          <Add
-            onClose={onClose}
-            onBack={() => setStep(0)}
-            events={events}
-            selectedDate={selectedDate}
-            onAddEvent={onAddEvent}
-            onSuccess={() => setStep(0)}
-          />
-        )}
+        {renderView}
       </CSSTransition>
     </SwitchTransition>
   );

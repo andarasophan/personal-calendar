@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useContext } from 'react';
 import SVG from '../../components/SVG';
 import Footer from '../templates/Footer';
 import Header from '../templates/Header';
@@ -9,17 +9,35 @@ import Event from './Event';
 import { customDateFormat } from '../../utils/helpers/DateHelpers';
 import { TransitionGroup } from 'react-transition-group';
 import { CSSTransition } from 'react-transition-group';
+import { store } from '../../store/store';
+import { DELETE_EVENT, SET_MODAL, SET_STEP } from '../../store/actionTypes';
 
-const List = ({
-  selectedDate,
-  events,
-  onClose,
-  onClickFooter,
-  onDeleteEvent,
-}) => {
+const List = () => {
+  const {
+    state: { events, selectedDate },
+    dispatch,
+  } = useContext(store);
+
+  const eventsOnDate = useMemo(() => {
+    if (!selectedDate) return [];
+    return events?.[customDateFormat(selectedDate)] ?? [];
+  }, [events, selectedDate]);
+
+  const handleOnClose = () => dispatch({ type: SET_MODAL, payload: false });
+
+  const handleDeleteEvent = (id) => {
+    dispatch({
+      type: DELETE_EVENT,
+      key: id,
+      formattedDate: customDateFormat(selectedDate),
+    });
+  };
+
+  const handleFooterClick = () => dispatch({ type: SET_STEP, payload: 1 });
+
   return (
     <div className={styles.listRoot}>
-      <Header onClose={onClose} />
+      <Header onClose={handleOnClose} />
       <div className={styles.listContent}>
         <div className={styles.listTitle}>
           <span>
@@ -32,7 +50,7 @@ const List = ({
           </p>
         </div>
         <TransitionGroup className={styles.listWrapper}>
-          {events.map(({ id, name, time, color, invitees }) => (
+          {eventsOnDate.map(({ id, name, time, color, invitees }) => (
             <CSSTransition
               key={id}
               timeout={200}
@@ -42,7 +60,7 @@ const List = ({
                 exitActive: styles.exitActive,
               }}
               onExited={() => {
-                if (events.length <= 1) onClose();
+                if (eventsOnDate.length <= 1) handleOnClose();
               }}
             >
               <Event
@@ -51,9 +69,7 @@ const List = ({
                 color={color}
                 invitees={invitees}
                 onEventClick={() => console.log('event clicked')}
-                onDeleteClick={() =>
-                  onDeleteEvent(customDateFormat(selectedDate), id)
-                }
+                onDeleteClick={() => handleDeleteEvent(id)}
               />
             </CSSTransition>
           ))}
@@ -61,8 +77,8 @@ const List = ({
       </div>
       <Footer
         buttonTitle="Add Event"
-        onClick={onClickFooter}
-        buttonProps={{ disabled: events.length >= 3 }}
+        onClick={handleFooterClick}
+        buttonProps={{ disabled: eventsOnDate.length >= 3 }}
       />
     </div>
   );

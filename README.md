@@ -30,4 +30,5 @@ npm run build
 - [x] Handle add event
 - [x] Handle delete event
 - [ ] Handle edit event
-- [ ] Make data persisting
+- [x] Make data persisting
+- [ ] Make middleware for store

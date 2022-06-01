@@ -1,50 +1,36 @@
-import React, { useState, useMemo } from 'react';
+import React, { useContext } from 'react';
 import Calendar from './components/Calendar';
 import Modal from './components/Modal';
+import { SET_MODAL, SET_SELECTED_DATE, SET_STEP } from './store/actionTypes';
+import { store } from './store/store';
 import { customDateFormat } from './utils/helpers/DateHelpers';
 import Views from './views';
 
 function App() {
-  const [events, setEvents] = useState({});
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [step, setStep] = useState(0);
-
-  const eventsOnDate = useMemo(() => {
-    if (!selectedDate) return [];
-    return events[customDateFormat(selectedDate)] ?? [];
-  }, [events, selectedDate]);
+  const {
+    state: { events, openModal },
+    dispatch,
+  } = useContext(store);
 
   return (
     <div className="container">
       <Calendar
         events={events}
         onClickDay={(date) => {
-          setSelectedDate(date);
-          setStep(!events[customDateFormat(date)]?.length ? 1 : 0);
-          setOpenModal(true);
+          // TODO handle all of these on middleware
+          dispatch({ type: SET_SELECTED_DATE, payload: date });
+          dispatch({
+            type: SET_STEP,
+            payload: !events?.[customDateFormat(date)]?.length ? 1 : 0,
+          });
+          dispatch({ type: SET_MODAL, payload: true });
         }}
       />
-      <Modal open={openModal} onClose={() => setOpenModal(false)}>
-        <Views
-          step={step}
-          setStep={setStep}
-          events={eventsOnDate}
-          selectedDate={selectedDate}
-          onAddEvent={(formattedDate, payload) => {
-            setEvents((prev) => ({
-              ...prev,
-              [formattedDate]: [...(prev?.[formattedDate] ?? []), payload],
-            }));
-          }}
-          onDeleteEvent={(formattedDate, id) => {
-            setEvents((prev) => ({
-              ...prev,
-              [formattedDate]: prev[formattedDate].filter((el) => el.id !== id),
-            }));
-          }}
-          onClose={() => setOpenModal(false)}
-        />
+      <Modal
+        open={openModal}
+        onClose={() => dispatch({ type: SET_MODAL, payload: false })}
+      >
+        <Views />
       </Modal>
     </div>
   );

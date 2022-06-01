@@ -23,9 +23,9 @@ const Modal = ({ children, onClose, open, duration = 200 }) => {
     >
       {(state) => (
         <div ref={nodeRef} className={styles.modalRoot}>
-          <div className={styles.cardContainer}>
+          <div className={styles.contentContainer}>
             <div
-              className={styles.card}
+              className={styles.content}
               style={{
                 transform: state === ENTERED ? 'scale(1)' : 'scale(0)',
                 transition: `transform ${duration}ms ease-in-out`,

@@ -28,5 +28,6 @@ npm run build
 - [x] Setup react & sass
 - [x] Add calendar component
 - [x] Handle add event
+- [ ] Handle delete event
 - [ ] Handle edit event
 - [ ] Make data persisting

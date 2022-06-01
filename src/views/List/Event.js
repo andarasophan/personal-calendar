@@ -5,7 +5,7 @@ import styles from './list.module.scss';
 
 const Event = ({ name, time, invitees = [], color }) => {
   return (
-    <div className={styles.event}>
+    <button className={styles.event}>
       <div className={styles.title}>
         <span
           className={styles.icon}
@@ -32,7 +32,7 @@ const Event = ({ name, time, invitees = [], color }) => {
           ))}
         </div>
       </div>
-    </div>
+    </button>
   );
 };
 

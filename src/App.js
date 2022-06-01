@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Calendar from './components/Calendar';
 import Modal from './components/Modal';
-import List from './views/List';
+import Views from './views';
 
 function App() {
   const [events, setEvents] = useState({});
@@ -18,8 +18,7 @@ function App() {
         }}
       />
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
-        <List
-          onClose={() => setOpenModal(false)}
+        <Views
           events={events}
           selectedDate={selectedDate}
           onAddEvent={(formattedDate, payload) => {
@@ -28,6 +27,7 @@ function App() {
               [formattedDate]: [...(prev?.[formattedDate] ?? []), payload],
             }));
           }}
+          onClose={() => setOpenModal(false)}
         />
       </Modal>
     </div>

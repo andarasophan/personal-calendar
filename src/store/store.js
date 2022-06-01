@@ -10,6 +10,7 @@ const initialState = {
   step: 0,
   openModal: false,
   selectedDate: null,
+  selectedEvent: null,
 };
 
 const store = createContext(initialState);

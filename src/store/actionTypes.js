@@ -5,3 +5,4 @@ export const DELETE_EVENT = 'DELETE_EVENT';
 export const SET_STEP = 'SET_STEP';
 export const SET_MODAL = 'SET_MODAL';
 export const SET_SELECTED_DATE = 'SET_SELECTED_DATE';
+export const SET_SELECTED_EVENT = 'SET_SELECTED_EVENT';

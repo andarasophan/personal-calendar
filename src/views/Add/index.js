@@ -32,6 +32,7 @@ const Add = () => {
     // only 3 events are allowed
     if (eventsOnDate.length >= 3) return;
 
+    // TODO handle on middleware
     dispatch({
       type: ADD_EVENT,
       formattedDate: customDateFormat(selectedDate),
@@ -39,11 +40,11 @@ const Add = () => {
         id: uniqid(),
         name,
         color: generateUniqColor(eventsOnDate),
+        // TODO handle time
         time: '11.00 - 14.00',
         invitees,
       },
     });
-    // TODO handle on middleware SET STEP
     dispatch({ type: SET_STEP, payload: 0 });
   };
 

@@ -3,6 +3,7 @@ import { CSSTransition } from 'react-transition-group';
 import { SwitchTransition } from 'react-transition-group';
 import { store } from '../store/store';
 import Add from './Add';
+import Edit from './Edit';
 import List from './List';
 import styles from './views.module.scss';
 
@@ -19,7 +20,7 @@ const Views = () => {
      * 1 => add
      * 2 => edit
      */
-    if (step === 2) return <div>edit</div>;
+    if (step === 2) return <Edit />;
     if (step === 1) return <Add />;
     return <List />;
   }, [step]);

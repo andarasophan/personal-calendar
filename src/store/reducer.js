@@ -1,12 +1,16 @@
 import {
   ADD_EVENT,
   DELETE_EVENT,
+  EDIT_EVENT,
   SET_MODAL,
   SET_SELECTED_DATE,
+  SET_SELECTED_EVENT,
   SET_STEP,
 } from './actionTypes';
 
 export const reducer = (state, action) => {
+  const currentEventOnDate = state.events?.[action.formattedDate] ?? [];
+
   switch (action.type) {
     case ADD_EVENT:
       return {
@@ -20,12 +24,23 @@ export const reducer = (state, action) => {
         },
       };
     case DELETE_EVENT:
-      const current = state.events?.[action.formattedDate] ?? [];
       return {
         ...state,
         events: {
           ...state.events,
-          [action.formattedDate]: current.filter((el) => el.id !== action.key),
+          [action.formattedDate]: currentEventOnDate.filter(
+            (el) => el.id !== action.key
+          ),
+        },
+      };
+    case EDIT_EVENT:
+      return {
+        ...state,
+        events: {
+          ...state.events,
+          [action.formattedDate]: currentEventOnDate.map((el) =>
+            el.id === action.key ? action.payload : el
+          ),
         },
       };
     case SET_STEP:
@@ -42,6 +57,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         selectedDate: action.payload,
+      };
+    case SET_SELECTED_EVENT:
+      return {
+        ...state,
+        selectedEvent: action.payload,
       };
     default:
       throw new Error();

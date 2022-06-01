@@ -29,6 +29,6 @@ npm run build
 - [x] Add calendar component
 - [x] Handle add event
 - [x] Handle delete event
-- [ ] Handle edit event
+- [x] Handle edit event
 - [x] Make data persisting
 - [ ] Make middleware for store

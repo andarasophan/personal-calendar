@@ -25,7 +25,7 @@ const schema2 = yup.object().shape({
   email: yup.string().email('Invalid email format'),
 });
 
-const Form = ({ formId, onSubmit, selectedDate }) => {
+const Form = ({ formId, onSubmit, selectedDate, defaultValues = {} }) => {
   const {
     register,
     handleSubmit,
@@ -35,6 +35,7 @@ const Form = ({ formId, onSubmit, selectedDate }) => {
   } = useForm({
     mode: 'onSubmit',
     resolver: yupResolver(schema1),
+    defaultValues,
   });
 
   const { fields, remove, append } = useFieldArray({
@@ -48,7 +49,7 @@ const Form = ({ formId, onSubmit, selectedDate }) => {
   };
 
   useEffect(() => {
-    setFocus('name', { shouldSelect: true });
+    setFocus('name');
   }, [setFocus]);
 
   return (
@@ -66,7 +67,7 @@ const Form = ({ formId, onSubmit, selectedDate }) => {
           helperText={errors.name?.message}
           error={Boolean(errors.name)}
         />
-        {/* to do at time field */}
+        {/* TODO add time field */}
       </form>
       <InviteeForm onSubmit={handleInviteesSubmit} mainFormErrors={errors} />
       <div className={styles.inviteesWrapper}>

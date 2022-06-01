@@ -37,7 +37,11 @@ const Add = ({
 
   return (
     <div className={styles.addRoot}>
-      <Header onClose={onClose} onBack={onBack} />
+      <Header
+        onClose={onClose}
+        onBack={onBack}
+        backButtonProps={{ disabled: !events.length }}
+      />
       <p style={{ padding: '5rem', textAlign: 'center' }}>
         this will be the form
       </p>

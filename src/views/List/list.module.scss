@@ -13,6 +13,7 @@
     padding: 1rem;
     max-height: calc(100vh - 10rem);
     overflow: auto;
+    overflow-x: hidden;
   
     .listTitle {
       display: flex;
@@ -31,6 +32,7 @@
     }
     
     .listWrapper {
+      min-height: 100px;
       .event {
         border-radius: .5rem;
         box-shadow: rgba(map.get($theme-colors, "black"), 0.16) 0px 1px 4px;
@@ -137,12 +139,30 @@
             visibility: visible;
           }
         }
+
+        //event transition
+        &.enter {
+          transform: translateX(50%);
+          opacity: 0;
+        }
+        
+        &.enterActive {
+          opacity: 1;
+          transform: translateX(0);
+          transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
+        }
+        
+        &.exitActive {
+          opacity: 0;
+          transform: translateX(-50%);
+          transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
+        }
       }
       .empty {
         text-align: center;
         padding: 4rem 1rem;
         color: map.get($theme-colors, "gray-300");
-      }
+      }   
     }
     
     @media (min-width: map.get($theme-screens, "sm")) {

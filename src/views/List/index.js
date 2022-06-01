@@ -7,6 +7,8 @@ import { EMonth } from '../../utils/enums/EMonth';
 import { EDays } from '../../utils/enums/EDays';
 import Event from './Event';
 import { customDateFormat } from '../../utils/helpers/DateHelpers';
+import { TransitionGroup } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group';
 
 const List = ({
   selectedDate,
@@ -29,13 +31,21 @@ const List = ({
             } ${selectedDate.getDate()}`}
           </p>
         </div>
-        <div className={styles.listWrapper}>
-          {!events.length ? (
-            <div className={styles.empty}>No event yet</div>
-          ) : (
-            events.map(({ id, name, time, color, invitees }) => (
+        <TransitionGroup className={styles.listWrapper}>
+          {events.map(({ id, name, time, color, invitees }) => (
+            <CSSTransition
+              key={id}
+              timeout={200}
+              classNames={{
+                enter: styles.enter,
+                enterActive: styles.enterActive,
+                exitActive: styles.exitActive,
+              }}
+              onExited={() => {
+                if (events.length <= 1) onClose();
+              }}
+            >
               <Event
-                key={id}
                 name={name}
                 time={time}
                 color={color}
@@ -45,9 +55,9 @@ const List = ({
                   onDeleteEvent(customDateFormat(selectedDate), id)
                 }
               />
-            ))
-          )}
-        </div>
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
       </div>
       <Footer
         buttonTitle="Add Event"

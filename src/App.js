@@ -27,6 +27,12 @@ function App() {
               [formattedDate]: [...(prev?.[formattedDate] ?? []), payload],
             }));
           }}
+          onDeleteEvent={(formattedDate, id) => {
+            setEvents((prev) => ({
+              ...prev,
+              [formattedDate]: prev[formattedDate].filter((el) => el.id !== id),
+            }));
+          }}
           onClose={() => setOpenModal(false)}
         />
       </Modal>

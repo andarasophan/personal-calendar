@@ -6,7 +6,13 @@ import Add from './Add';
 import List from './List';
 import styles from './views.module.scss';
 
-const Views = ({ events: allEvents, selectedDate, onAddEvent, onClose }) => {
+const Views = ({
+  events: allEvents,
+  selectedDate,
+  onAddEvent,
+  onClose,
+  onDeleteEvent,
+}) => {
   const [step, setStep] = useState(0);
   const [previousStep, setPreviousStep] = useState(0);
 
@@ -39,6 +45,7 @@ const Views = ({ events: allEvents, selectedDate, onAddEvent, onClose }) => {
             events={eventOnDay}
             selectedDate={selectedDate}
             onClickFooter={() => setStep(1)}
+            onDeleteEvent={onDeleteEvent}
           />
         ) : (
           <Add

@@ -6,8 +6,15 @@ import styles from './list.module.scss';
 import { EMonth } from '../../utils/enums/EMonth';
 import { EDays } from '../../utils/enums/EDays';
 import Event from './Event';
+import { customDateFormat } from '../../utils/helpers/DateHelpers';
 
-const List = ({ selectedDate, events, onClose, onClickFooter }) => {
+const List = ({
+  selectedDate,
+  events,
+  onClose,
+  onClickFooter,
+  onDeleteEvent,
+}) => {
   return (
     <div className={styles.listRoot}>
       <Header onClose={onClose} />
@@ -26,13 +33,17 @@ const List = ({ selectedDate, events, onClose, onClickFooter }) => {
           {!events.length ? (
             <div className={styles.empty}>No event yet</div>
           ) : (
-            events.map((el) => (
+            events.map(({ id, name, time, color, invitees }) => (
               <Event
-                key={el.id}
-                name={el.name}
-                time={el.time}
-                color={el.color}
-                invitees={el.invitees}
+                key={id}
+                name={name}
+                time={time}
+                color={color}
+                invitees={invitees}
+                onEventClick={() => console.log('event clicked')}
+                onDeleteClick={() =>
+                  onDeleteEvent(customDateFormat(selectedDate), id)
+                }
               />
             ))
           )}

@@ -32,77 +32,109 @@
     
     .listWrapper {
       .event {
-        display: block;
-        width: 100%;
-        text-align: start;
         border-radius: .5rem;
         box-shadow: rgba(map.get($theme-colors, "black"), 0.16) 0px 1px 4px;
-        padding: 1rem;
+        position: relative;
+        transition: background-color 200ms ease-in-out;
         &:not(:last-child) {
           margin-bottom: 1rem;
         }
-  
-        .title {
-          display: flex;
-          align-items: center;
-          margin-bottom: 1rem;
-          p {
-            font-size: 1.125rem;
-            color: map.get($theme-colors, "gray-600");
+
+        .eventBtn {
+          width: 100%;
+          text-align: start;
+          padding: 1rem;
+          &:hover::after {
+            background-color: transparent;
           }
-        }
-  
-        .icon {
-          height: 20px;
-          width: 20px;
-          display: block;
-          border-radius: 2px;
-          margin-right: 1rem;
-          flex: none;
-          color: map.get($theme-colors, "gray-400");
-        }
-  
-        .info {
-          display: flex;
-          margin-bottom: .5rem;
-          p {
-            line-height: 20px;
-            font-size: 0.875rem;
-            color: map.get($theme-colors, "gray-600");
-          }
-        }
-  
-        .users {
-          overflow: hidden;
-          .user {
+
+          .title {
             display: flex;
             align-items: center;
-            font-size: .875rem;
+            margin-bottom: 1rem;
+            p {
+              font-size: 1.125rem;
+              color: map.get($theme-colors, "gray-600");
+            }
+          }
+
+          .icon {
+            height: 20px;
+            width: 20px;
+            display: block;
+            border-radius: 2px;
+            margin-right: 1rem;
+            flex: none;
+            color: map.get($theme-colors, "gray-400");
+          }
+
+          .info {
+            display: flex;
+            margin-bottom: .5rem;
+            p {
+              line-height: 20px;
+              font-size: 0.875rem;
+              color: map.get($theme-colors, "gray-600");
+            }
+          }
+
+          .users {
             overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            &:not(:last-child) {
-              margin-bottom: .25rem;
-            }
-            .avatar {
-              height: 20px;
-              width: 20px;
-              background-color: map.get($theme-colors, "gray-200");
+            .user {
               display: flex;
-              justify-content: center;
               align-items: center;
-              border-radius: 100%;
-              font-size: 12px;
-              font-weight: 500;
-              margin-right: .5rem;
-              flex: none;
-            }
-            .email {
+              font-size: .875rem;
               overflow: hidden;
               text-overflow: ellipsis;
               white-space: nowrap;
-              color: map.get($theme-colors, "gray-600");
+              &:not(:last-child) {
+                margin-bottom: .25rem;
+              }
+              .avatar {
+                height: 20px;
+                width: 20px;
+                background-color: map.get($theme-colors, "gray-200");
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 100%;
+                font-size: 12px;
+                font-weight: 500;
+                margin-right: .5rem;
+                flex: none;
+              }
+              .email {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                color: map.get($theme-colors, "gray-600");
+              }
             }
+          }
+        }
+        .deletebtn {
+          opacity: 0;
+          visibility: hidden;
+          position: absolute;
+          z-index: 1;
+          top: .5rem;
+          right: .5rem;
+          background-color: map.get($theme-colors, "red-500");
+          transition: background-color 200ms ease-in-out, opacity 200ms ease-in-out, visibility 200ms ease-in-out;
+          color: map.get($theme-colors, "white");
+          font-size: 0.75rem;
+          &:hover {
+            background-color: map.get($theme-colors, "red-700");
+            &::after {
+              background-color: transparent;
+            }
+          }
+        }
+        &:hover {
+          background-color: rgba(map.get($theme-colors, "gray-100"), .7);
+          .deletebtn {
+            opacity: 1;
+            visibility: visible;
           }
         }
       }

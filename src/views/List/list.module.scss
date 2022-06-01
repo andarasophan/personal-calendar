@@ -1,0 +1,119 @@
+@use "sass:map";
+@import '../../styles/variables';
+
+.listRoot {
+  width: calc(100vw - 2rem);
+  padding: 1rem;
+  max-height: calc(100vh - 10rem);
+  overflow: auto;
+
+  .listTitle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 2rem;
+    color: map.get($theme-colors, "gray-600");
+    
+    span {
+      flex: none;
+      height: 1rem;
+      width: 1rem;
+      display: block;
+      margin-right: .5rem;
+    }
+  }
+  
+  .listWrapper {
+    .event {
+      border-radius: .5rem;
+      box-shadow: rgba(map.get($theme-colors, "black"), 0.16) 0px 1px 4px;
+      padding: 1rem;
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+
+      .title {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        p {
+          font-size: 1.125rem;
+          color: map.get($theme-colors, "gray-600");
+        }
+      }
+
+      .icon {
+        height: 20px;
+        width: 20px;
+        display: block;
+        border-radius: 2px;
+        margin-right: 1rem;
+        flex: none;
+        color: map.get($theme-colors, "gray-400");
+      }
+
+      .info {
+        display: flex;
+        margin-bottom: .5rem;
+        p {
+          line-height: 20px;
+          font-size: 0.875rem;
+          color: map.get($theme-colors, "gray-600");
+        }
+      }
+
+      .users {
+        overflow: hidden;
+        .user {
+          display: flex;
+          align-items: center;
+          font-size: .875rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          &:not(:last-child) {
+            margin-bottom: .25rem;
+          }
+          .avatar {
+            height: 20px;
+            width: 20px;
+            background-color: map.get($theme-colors, "gray-200");
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 100%;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: .5rem;
+            flex: none;
+          }
+          .email {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: map.get($theme-colors, "gray-600");
+          }
+        }
+      }
+    }
+    .empty {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: map.get($theme-colors, "gray-300");
+    }
+  }
+  
+  @media (min-width: map.get($theme-screens, "sm")) {
+    .listWrapper .empty {
+      font-size: 1.25rem;
+    }
+  }
+
+  @media (min-width: map.get($theme-screens, "md")) {
+    padding: 1rem 2rem;
+    width: 500px;
+    .listWrapper .empty {
+      font-size: 1.5rem;
+    }
+  }
+}

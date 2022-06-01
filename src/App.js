@@ -1,28 +1,34 @@
 import React, { useState } from 'react';
 import Calendar from './components/Calendar';
 import Modal from './components/Modal';
+import List from './views/List';
 
 function App() {
   const [events, setEvents] = useState({});
   const [openModal, setOpenModal] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   return (
     <div className="container">
       <Calendar
         events={events}
-        onAddEvent={(formattedDate, payload) => {
-          setEvents((prev) => ({
-            ...prev,
-            [formattedDate]: [...(prev?.[formattedDate] ?? []), payload],
-          }));
-        }}
-        onClickDay={(date, event) => {
-          console.log(date, event);
+        onClickDay={(date) => {
+          setSelectedDate(date);
           setOpenModal(true);
         }}
       />
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
-        <div style={{ width: 500, height: 500 }} />
+        <List
+          onClose={() => setOpenModal(false)}
+          events={events}
+          selectedDate={selectedDate}
+          onAddEvent={(formattedDate, payload) => {
+            setEvents((prev) => ({
+              ...prev,
+              [formattedDate]: [...(prev?.[formattedDate] ?? []), payload],
+            }));
+          }}
+        />
       </Modal>
     </div>
   );

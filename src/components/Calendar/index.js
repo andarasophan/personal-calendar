@@ -4,17 +4,13 @@ import CalendarBody from './CalendarBody';
 import CalendarHeader from './CalendarHeader';
 import CalendarProvider, { CalendarContext } from './context';
 
-const Calendar = ({ events, onAddEvent = () => {}, onClickDay = () => {} }) => (
+const Calendar = ({ events, onClickDay = () => {} }) => (
   <CalendarProvider>
-    <CalendarRoot
-      events={events}
-      onAddEvent={onAddEvent}
-      onClickDay={onClickDay}
-    />
+    <CalendarRoot events={events} onClickDay={onClickDay} />
   </CalendarProvider>
 );
 
-const CalendarRoot = ({ events, onAddEvent, onClickDay }) => {
+const CalendarRoot = ({ events, onClickDay }) => {
   const { setCurrentEvents } = useContext(CalendarContext);
 
   useEffect(() => {
@@ -24,7 +20,7 @@ const CalendarRoot = ({ events, onAddEvent, onClickDay }) => {
   return (
     <div className={styles.calendarRoot}>
       <CalendarHeader />
-      <CalendarBody onAddEvent={onAddEvent} onClickDay={onClickDay} />
+      <CalendarBody onClickDay={onClickDay} />
     </div>
   );
 };

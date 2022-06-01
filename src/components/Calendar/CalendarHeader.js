@@ -8,16 +8,7 @@ import styles from './calendar.module.scss';
 import { CalendarContext } from './context';
 import variables from '../../styles/_variables.scss';
 import useWindowSize from '../../hooks/useWindowSize';
-
-const days = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-];
+import { EDays } from '../../utils/enums/EDays';
 
 const CalendarHeader = () => {
   const { currentDate, setCurrentDate } = useContext(CalendarContext);
@@ -65,9 +56,9 @@ const CalendarHeader = () => {
         </div>
       </div>
       <div className={styles.weeksHeader}>
-        {days.map((el) => (
-          <div key={el} className={styles.dayName}>
-            {width >= getBpNumber(variables.lg) ? el : el[0]}
+        {Object.keys(EDays).map((el) => (
+          <div key={EDays[el]} className={styles.dayName}>
+            {width >= getBpNumber(variables.lg) ? EDays[el] : EDays[el][0]}
           </div>
         ))}
       </div>

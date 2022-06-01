@@ -1,15 +1,13 @@
 import clsx from 'clsx';
 import React, { useContext, useMemo } from 'react';
-import { darkColorGenerator } from '../../../utils/helpers/ColorHelpers';
 import {
   isSameMonth,
   customDateFormat,
 } from '../../../utils/helpers/DateHelpers';
 import { CalendarContext } from '../context';
 import styles from './calendarBody.module.scss';
-import uniqid from 'uniqid';
 
-const Day = ({ day, onAddEvent, onClickDay }) => {
+const Day = ({ day, onClickDay }) => {
   const { currentDate, currentEvents } = useContext(CalendarContext);
 
   const eventOnDay = useMemo(
@@ -17,29 +15,13 @@ const Day = ({ day, onAddEvent, onClickDay }) => {
     [currentEvents, day]
   );
 
-  const addEvent = () => {
-    // only 3 events allowed
-    if (eventOnDay.length >= 3) return;
-
-    /**
-     * onAddEvent
-     * @param a formatted date of the day
-     * @param b payload for that day
-     */
-    onAddEvent(customDateFormat(day), {
-      id: uniqid(),
-      name: 'test asdast sdasfq 12312312dasdasd',
-      color: darkColorGenerator(),
-    });
-  };
-
   return (
     <button
       className={clsx(
         styles.day,
         !isSameMonth(day, currentDate) && styles.outside
       )}
-      onClick={() => onClickDay(day, eventOnDay)}
+      onClick={() => onClickDay(day)}
     >
       <div className={styles.date}>{day.getDate()}</div>
 

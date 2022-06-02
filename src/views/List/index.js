@@ -16,6 +16,8 @@ import {
   SET_SELECTED_EVENT,
   SET_STEP,
 } from '../../store/actionTypes';
+import Content from '../templates/Content';
+import Card from '../templates/Card';
 
 const List = () => {
   const {
@@ -41,9 +43,9 @@ const List = () => {
   const handleFooterClick = () => dispatch({ type: SET_STEP, payload: 1 });
 
   return (
-    <div className={styles.listRoot}>
+    <Card>
       <Header onClose={handleOnClose} />
-      <div className={styles.listContent}>
+      <Content>
         <div className={styles.listTitle}>
           <span>
             <SVG width="100%" height="100%" src="/assets/svg/Calendar.svg" />
@@ -89,13 +91,13 @@ const List = () => {
             );
           })}
         </TransitionGroup>
-      </div>
+      </Content>
       <Footer
         buttonTitle="Add Event"
         onClick={handleFooterClick}
         buttonProps={{ disabled: eventsOnDate.length >= 3 }}
       />
-    </div>
+    </Card>
   );
 };
 

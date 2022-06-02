@@ -2,12 +2,13 @@ import React, { useMemo, useContext } from 'react';
 import { darkColorGenerator } from '../../utils/helpers/ColorHelpers';
 import { customDateFormat } from '../../utils/helpers/DateHelpers';
 import uniqid from 'uniqid';
-import styles from './add.module.scss';
 import Header from '../templates/Header';
 import Footer from '../templates/Footer';
 import { store } from '../../store/store';
 import { ADD_EVENT, SET_MODAL, SET_STEP } from '../../store/actionTypes';
 import Form from '../templates/Form';
+import Content from '../templates/Content';
+import Card from '../templates/Card';
 
 const generateUniqColor = (dep = []) => {
   const result = darkColorGenerator();
@@ -52,19 +53,19 @@ const Add = () => {
   const handleOnBack = () => dispatch({ type: SET_STEP, payload: 0 });
 
   return (
-    <div className={styles.addRoot}>
+    <Card>
       <Header
         onClose={handleOnClose}
         onBack={handleOnBack}
         backButtonProps={{ disabled: !eventsOnDate.length }}
       />
-      <div className={styles.addContent}>
+      <Content>
         <Form
           onSubmit={handleOnSubmit}
           formId={FormID}
           selectedDate={selectedDate}
         />
-      </div>
+      </Content>
       <Footer
         buttonTitle="Save"
         buttonProps={{
@@ -72,7 +73,7 @@ const Add = () => {
           type: 'submit',
         }}
       />
-    </div>
+    </Card>
   );
 };
 

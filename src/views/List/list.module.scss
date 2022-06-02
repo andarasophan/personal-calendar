@@ -1,158 +1,134 @@
 @use "sass:map";
 @import '../../styles/variables';
 
-
-.listRoot {
-  background-color: map.get($theme-colors, "white");
-  box-shadow: 0px 24px 38px 3px rgba(map.get($theme-colors, "black"),.14),0px 9px 46px 8px rgba(map.get($theme-colors, "black"),.12),0px 11px 15px -7px rgba(map.get($theme-colors, "black"),.2);
-  border-radius: .5rem;
-  overflow: hidden;
-
-  .listContent {
-    width: calc(100vw - 2rem);
-    padding: 1rem;
-    max-height: calc(100vh - 10rem);
-    overflow: auto;
-    overflow-x: hidden;
+.listTitle {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+  color: map.get($theme-colors, "gray-600");
   
-    .listTitle {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      margin-bottom: 2rem;
-      color: map.get($theme-colors, "gray-600");
-      
-      span {
-        flex: none;
-        height: 1rem;
-        width: 1rem;
+  span {
+    flex: none;
+    height: 1rem;
+    width: 1rem;
+    display: block;
+    margin-right: .5rem;
+  }
+}
+
+.listWrapper {
+  min-height: 100px;
+  .event {
+    border-radius: .5rem;
+    box-shadow: rgba(map.get($theme-colors, "black"), 0.16) 0px 1px 4px;
+    position: relative;
+    transition: background-color 200ms ease-in-out;
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+
+    .eventBtn {
+      width: 100%;
+      text-align: start;
+      padding: 1rem;
+      &:hover::after {
+        background-color: transparent;
+      }
+
+      .title {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        p {
+          font-size: 1.125rem;
+          color: map.get($theme-colors, "gray-600");
+        }
+      }
+
+      .icon {
+        height: 20px;
+        width: 20px;
         display: block;
-        margin-right: .5rem;
+        border-radius: 2px;
+        margin-right: 1rem;
+        flex: none;
+        color: map.get($theme-colors, "gray-400");
       }
+
+      .info {
+        display: flex;
+        margin-bottom: .5rem;
+        p {
+          line-height: 20px;
+          font-size: 0.875rem;
+          color: map.get($theme-colors, "gray-600");
+        }
+      }
+
+      .invitees {
+        overflow: hidden;
+      }
+    }
+    .deletebtn {
+      opacity: 0;
+      visibility: hidden;
+      position: absolute;
+      z-index: 1;
+      top: .5rem;
+      right: .5rem;
+      background-color: map.get($theme-colors, "red-500");
+      transition: background-color 200ms ease-in-out, opacity 200ms ease-in-out, visibility 200ms ease-in-out;
+      color: map.get($theme-colors, "white");
+      font-size: 0.75rem;
+      &:hover {
+        background-color: map.get($theme-colors, "red-700");
+        &::after {
+          background-color: transparent;
+        }
+      }
+    }
+    &:hover {
+      background-color: rgba(map.get($theme-colors, "gray-100"), .7);
+      .deletebtn {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    //event transition
+    &.enter {
+      transform: translateX(50%);
+      opacity: 0;
     }
     
-    .listWrapper {
-      min-height: 100px;
-      .event {
-        border-radius: .5rem;
-        box-shadow: rgba(map.get($theme-colors, "black"), 0.16) 0px 1px 4px;
-        position: relative;
-        transition: background-color 200ms ease-in-out;
-        &:not(:last-child) {
-          margin-bottom: 1rem;
-        }
-
-        .eventBtn {
-          width: 100%;
-          text-align: start;
-          padding: 1rem;
-          &:hover::after {
-            background-color: transparent;
-          }
-
-          .title {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            p {
-              font-size: 1.125rem;
-              color: map.get($theme-colors, "gray-600");
-            }
-          }
-
-          .icon {
-            height: 20px;
-            width: 20px;
-            display: block;
-            border-radius: 2px;
-            margin-right: 1rem;
-            flex: none;
-            color: map.get($theme-colors, "gray-400");
-          }
-
-          .info {
-            display: flex;
-            margin-bottom: .5rem;
-            p {
-              line-height: 20px;
-              font-size: 0.875rem;
-              color: map.get($theme-colors, "gray-600");
-            }
-          }
-
-          .invitees {
-            overflow: hidden;
-          }
-        }
-        .deletebtn {
-          opacity: 0;
-          visibility: hidden;
-          position: absolute;
-          z-index: 1;
-          top: .5rem;
-          right: .5rem;
-          background-color: map.get($theme-colors, "red-500");
-          transition: background-color 200ms ease-in-out, opacity 200ms ease-in-out, visibility 200ms ease-in-out;
-          color: map.get($theme-colors, "white");
-          font-size: 0.75rem;
-          &:hover {
-            background-color: map.get($theme-colors, "red-700");
-            &::after {
-              background-color: transparent;
-            }
-          }
-        }
-        &:hover {
-          background-color: rgba(map.get($theme-colors, "gray-100"), .7);
-          .deletebtn {
-            opacity: 1;
-            visibility: visible;
-          }
-        }
-
-        //event transition
-        &.enter {
-          transform: translateX(50%);
-          opacity: 0;
-        }
-        
-        &.enterActive {
-          opacity: 1;
-          transform: translateX(0);
-          transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
-        }
-        
-        &.exitActive {
-          opacity: 0;
-          transform: translateX(-50%);
-          transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
-        }
-      }
-      .empty {
-        text-align: center;
-        padding: 4rem 1rem;
-        color: map.get($theme-colors, "gray-300");
-      }   
+    &.enterActive {
+      opacity: 1;
+      transform: translateX(0);
+      transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
     }
     
-    @media (min-width: map.get($theme-screens, "sm")) {
-      .listWrapper .empty {
-        font-size: 1.25rem;
-      }
+    &.exitActive {
+      opacity: 0;
+      transform: translateX(-50%);
+      transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
     }
-  
-    @media (min-width: map.get($theme-screens, "md")) {
-      width: 300px;
-      .listWrapper .empty {
-        font-size: 1.5rem;
-      }
-    }
-    @media (min-width: map.get($theme-screens, "lg")) {
-      padding: 1rem 2rem;
-      width: 400px;
-    }
-    @media (min-width: map.get($theme-screens, "xl")) {
-      width: 500px;
-    }
+  }
+  .empty {
+    text-align: center;
+    padding: 4rem 1rem;
+    color: map.get($theme-colors, "gray-300");
+  }   
+}
+
+@media (min-width: map.get($theme-screens, "sm")) {
+  .listWrapper .empty {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: map.get($theme-screens, "md")) {
+  .listWrapper .empty {
+    font-size: 1.5rem;
   }
 }

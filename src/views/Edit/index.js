@@ -12,6 +12,8 @@ import {
 import Form from '../templates/Form';
 import { customDateFormat } from '../../utils/helpers/DateHelpers';
 import Button from '../../components/Button';
+import Content from '../templates/Content';
+import Card from '../templates/Card';
 
 const FormID = 'editEvent';
 
@@ -59,16 +61,16 @@ const Edit = () => {
   };
 
   return (
-    <div className={styles.editRoot}>
+    <Card>
       <Header onClose={handleOnClose} onBack={handleOnBack} />
-      <div className={styles.editContent}>
+      <Content className={styles.editContent}>
         <Form
           onSubmit={handleOnSubmit}
           formId={FormID}
           selectedDate={selectedDate}
           defaultValues={selectedEvent}
         />
-      </div>
+      </Content>
       <Footer
         buttonTitle="Edit"
         buttonProps={{
@@ -85,7 +87,7 @@ const Edit = () => {
           </Button>
         }
       />
-    </div>
+    </Card>
   );
 };
 

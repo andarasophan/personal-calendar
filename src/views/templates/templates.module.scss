@@ -42,7 +42,7 @@
     color: map.get($theme-colors, "white");
   }
 
-  @media (min-width: map.get($theme-screens, "md")) {
+  @media (min-width: map.get($theme-screens, "lg")) {
     padding: .875rem 2rem;
   }
 }

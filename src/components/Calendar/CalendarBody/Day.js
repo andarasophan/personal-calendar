@@ -21,7 +21,7 @@ const Day = ({ day, onClickDay }) => {
         styles.day,
         !isSameMonth(day, currentDate) && styles.outside
       )}
-      onClick={() => onClickDay(day)}
+      onClick={(e) => onClickDay(day, e)}
     >
       <div className={styles.date}>{day.getDate()}</div>
 

@@ -1,10 +1,10 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, forwardRef } from 'react';
 import ReactDOM from 'react-dom';
 import { Transition } from 'react-transition-group';
 import { ENTERED } from 'react-transition-group/cjs/Transition';
 import styles from './modal.module.scss';
 
-const Modal = ({ children, onClose, open, duration = 200 }) => {
+const Modal = ({ children, onClose, open, duration = 200, cardProps }, ref) => {
   const nodeRef = useRef();
 
   const handleClose = useCallback(() => {
@@ -23,7 +23,7 @@ const Modal = ({ children, onClose, open, duration = 200 }) => {
     >
       {(state) => (
         <div ref={nodeRef} className={styles.modalRoot}>
-          <div className={styles.contentContainer}>
+          <div ref={ref} {...cardProps} className={styles.contentContainer}>
             <div
               className={styles.content}
               style={{
@@ -49,4 +49,4 @@ const Modal = ({ children, onClose, open, duration = 200 }) => {
   );
 };
 
-export default Modal;
+export default forwardRef(Modal);

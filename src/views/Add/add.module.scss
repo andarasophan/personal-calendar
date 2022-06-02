@@ -11,9 +11,16 @@
     width: calc(100vw - 2rem);
     max-height: calc(100vh - 10rem);
     padding: 1rem;
+    overflow: auto;
     
     @media (min-width: map.get($theme-screens, "md")) {
+      width: 300px;
+    }
+    @media (min-width: map.get($theme-screens, "lg")) {
       padding: 1rem 2rem;
+      width: 400px;
+    }
+    @media (min-width: map.get($theme-screens, "xl")) {
       width: 500px;
     }
   }

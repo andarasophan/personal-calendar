@@ -9,6 +9,7 @@ import { CalendarContext } from './context';
 import variables from '../../styles/_variables.scss';
 import useWindowSize from '../../hooks/useWindowSize';
 import { EDays } from '../../utils/enums/EDays';
+import MainButton from '../templates/MainButton';
 
 const CalendarHeader = ({ onChangeMonth }) => {
   const { currentDate, setCurrentDate } = useContext(CalendarContext);
@@ -22,12 +23,14 @@ const CalendarHeader = ({ onChangeMonth }) => {
   return (
     <div className={styles.header}>
       <div className={styles.control}>
-        <Button
-          className={styles.todayBtn}
+        <MainButton
+          className="mr-8"
+          color="white"
+          size="md"
           onClick={() => handleOnChange(new Date())}
         >
           Today
-        </Button>
+        </MainButton>
         <div className={styles.monthControl}>
           <div className={styles.btnWrapper}>
             <Button

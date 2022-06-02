@@ -12,6 +12,12 @@
 .mb-4 {
   margin-bottom: 1rem;
 }
+.mr-4 {
+  margin-right: 1rem;
+}
+.mr-8 {
+  margin-right: 2rem;
+}
 
 @each $key, $value in $theme-screens {
   @media (min-width: $value) {

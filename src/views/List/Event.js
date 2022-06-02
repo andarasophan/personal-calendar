@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '../../components/Button';
 import SVG from '../../components/SVG';
+import MainButton from '../../components/templates/MainButton';
 import Invitee from '../templates/Invitee';
 import styles from './list.module.scss';
 
@@ -43,9 +44,14 @@ const Event = ({
         </div>
       </Button>
 
-      <Button className={styles.deletebtn} onClick={onDeleteClick}>
+      <MainButton
+        className={styles.deletebtn}
+        size="sm"
+        color="red"
+        onClick={onDeleteClick}
+      >
         Delete
-      </Button>
+      </MainButton>
     </div>
   );
 };

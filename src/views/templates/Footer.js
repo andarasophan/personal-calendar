@@ -1,14 +1,14 @@
 import React from 'react';
 import styles from './templates.module.scss';
-import Button from '../../components/Button';
+import MainButton from '../../components/templates/MainButton';
 
 const Footer = ({ onClick, buttonTitle, buttonProps, otherComponent }) => {
   return (
     <div className={styles.footer}>
       {otherComponent}
-      <Button className={styles.defaultBtn} {...buttonProps} onClick={onClick}>
+      <MainButton color="blue" onClick={onClick} {...buttonProps}>
         {buttonTitle}
-      </Button>
+      </MainButton>
     </div>
   );
 };

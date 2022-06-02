@@ -1,0 +1,43 @@
+@use "sass:map";
+@import '../../styles/variables';
+
+.mainButton {
+  transition: background-color 200ms ease-in-out;
+  color: map.get($theme-colors, "white");
+
+  &:hover ::after {
+    background-color: transparent;
+  }
+}
+
+.mainButton.white {
+  border: 1px solid map.get($theme-colors, "gray-300");
+  background-color: map.get($theme-colors, "white");
+  color: map.get($theme-colors, "gray-800");
+  &:hover:not(:disabled) {
+    background-color: map.get($theme-colors, "gray-100");
+  }
+}
+.mainButton.blue {
+  background-color: map.get($theme-colors, "blue-600");
+  &:hover:not(:disabled) {
+    background-color: map.get($theme-colors, "blue-700");
+  }
+}
+.mainButton.red {
+  background-color: map.get($theme-colors, "red-500");
+  &:hover:not(:disabled) {
+    background-color: map.get($theme-colors, "red-700");
+  }
+}
+
+.mainButton.sm {
+  font-size: .75rem;
+}
+.mainButton.md {
+  font-size: .875rem;
+}
+
+.mainButton.disabled {
+  background-color: map.get($theme-colors, "gray-200");
+}

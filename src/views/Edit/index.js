@@ -1,5 +1,4 @@
 import React, { useContext, useMemo } from 'react';
-import styles from './edit.module.scss';
 import Header from '../templates/Header';
 import Footer from '../templates/Footer';
 import { store } from '../../store/store';
@@ -11,9 +10,9 @@ import {
 } from '../../store/actionTypes';
 import Form from '../templates/Form';
 import { customDateFormat } from '../../utils/helpers/DateHelpers';
-import Button from '../../components/Button';
 import Content from '../templates/Content';
 import Card from '../templates/Card';
+import MainButton from '../../components/templates/MainButton';
 
 const FormID = 'editEvent';
 
@@ -63,7 +62,7 @@ const Edit = () => {
   return (
     <Card>
       <Header onClose={handleOnClose} onBack={handleOnBack} />
-      <Content className={styles.editContent}>
+      <Content>
         <Form
           onSubmit={handleOnSubmit}
           formId={FormID}
@@ -78,13 +77,14 @@ const Edit = () => {
           type: 'submit',
         }}
         otherComponent={
-          <Button
+          <MainButton
+            className="mr-4"
+            color="red"
             type="button"
             onClick={handleDeleteEvent}
-            className={styles.deleteBtn}
           >
             Delete
-          </Button>
+          </MainButton>
         }
       />
     </Card>

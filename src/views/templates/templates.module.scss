@@ -40,15 +40,6 @@
   display: flex;
   justify-content: flex-end;
 
-  button {
-    font-size: .875rem;
-  }
-
-  .defaultBtn {
-    background-color: map.get($theme-colors, "blue-600");
-    color: map.get($theme-colors, "white");
-  }
-
   @media (min-width: map.get($theme-screens, "lg")) {
     padding: .875rem 2rem;
   }

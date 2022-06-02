@@ -17,12 +17,6 @@
       padding: 0 1rem;
       justify-content: space-between;
 
-      .todayBtn {
-        border: 1px solid map.get($theme-colors, "gray-300");
-        margin-right: 2rem;
-        font-size: .875rem;
-      }
-
       .monthControl {
         display: flex;
         align-items: center;

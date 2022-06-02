@@ -95,49 +95,47 @@
   }
 }
 
-.addUserBtn {
-  display: flex;
-  color: map.get($theme-colors, "gray-700");
-
-  span {
-    width: 28px;
-    height: 28px;
-  }
-}
-
-.inviteesWrapper {
-  margin-top: 1rem;
-
-  > p {
-    font-size: 0.875rem;
+.form {
+  .timeGroup {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 2rem;
     margin-bottom: 1rem;
   }
-  .invitees {
-    overflow: hidden;
 
-    .customInvitee {
-      display: flex;
-      align-items: center;
-      &:not(:last-child) {
-        margin-bottom: .25rem;
-      }
-
-      .deleteBtn {
+  .addUserBtn {
+    display: flex;
+    color: map.get($theme-colors, "gray-700");
+    span {
+      width: 28px;
+      height: 28px;
+    }
+  }
+  
+  .inviteesWrapper {
+    margin-top: 1rem;
+    > p {
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+    .invitees {
+      overflow: hidden;
+      .customInvitee {
         display: flex;
-        span {
-          height: 1rem;
-          width: 1rem;
-          display: block;
-          margin-right: .5rem;
+        align-items: center;
+        &:not(:last-child) {
+          margin-bottom: .25rem;
+        }
+        .deleteBtn {
+          display: flex;
+          span {
+            height: 1rem;
+            width: 1rem;
+            display: block;
+            margin-right: .5rem;
+          }
         }
       }
     }
   }
-}
-
-.timeGroup {
-  display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
-  gap: 2rem;
-  margin-bottom: 1rem;
 }

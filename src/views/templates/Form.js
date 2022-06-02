@@ -93,7 +93,7 @@ const Form = ({ formId, onSubmit, selectedDate, defaultValues = {} }) => {
   }, [setFocus]);
 
   return (
-    <>
+    <div className={styles.form}>
       <TextField
         label="Date"
         readOnly
@@ -162,7 +162,7 @@ const Form = ({ formId, onSubmit, selectedDate, defaultValues = {} }) => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

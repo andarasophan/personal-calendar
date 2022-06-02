@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import * as yup from 'yup';
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import TextField from '../../components/TextField';
 import Button from '../../components/Button';
@@ -8,9 +8,49 @@ import SVG from '../../components/SVG';
 import styles from './templates.module.scss';
 import Invitee from './Invitee';
 import { customDateFormat } from '../../utils/helpers/DateHelpers';
+import { IMask } from 'react-imask';
+import { timeRegex } from '../../utils/enums/regexTypes';
 
+const TimeFormatProps = {
+  format: 'HH:mm',
+  imaskprops: {
+    lazy: false,
+    blocks: {
+      HH: {
+        mask: IMask.MaskedRange,
+        from: 0,
+        to: 23,
+        placeholderChar: 'H',
+      },
+      mm: {
+        mask: IMask.MaskedRange,
+        from: 0,
+        to: 59,
+        placeholderChar: 'M',
+      },
+    },
+  },
+};
+
+// invalid time frame
 const schema1 = yup.object().shape({
   name: yup.string().trim().required('Please enter title'),
+  from: yup
+    .string()
+    .matches(timeRegex, 'Please enter time')
+    .required('Please enter time'),
+  to: yup
+    .string()
+    .matches(timeRegex, 'Please enter time')
+    .required('Please enter time')
+    .test({
+      name: 'timeFrame',
+      message: 'Invalid time frame',
+      test: function (value) {
+        return +value?.replace(/:/g, '') > +this.parent.from?.replace(/:/g, '');
+      },
+    }),
+
   invitees: yup
     .array()
     .of(
@@ -45,11 +85,11 @@ const Form = ({ formId, onSubmit, selectedDate, defaultValues = {} }) => {
 
   const handleInviteesSubmit = ({ email } = {}) => {
     if (!email) handleSubmit(onSubmit)();
-    else append({ email });
+    else if (!fields.some((el) => el.email === email)) append({ email });
   };
 
   useEffect(() => {
-    setFocus('name');
+    setFocus('from');
   }, [setFocus]);
 
   return (
@@ -61,13 +101,44 @@ const Form = ({ formId, onSubmit, selectedDate, defaultValues = {} }) => {
         className="mb-4"
       />
       <form id={formId} onSubmit={handleSubmit(onSubmit)} className="mb-4">
+        <div className={styles.timeGroup}>
+          <Controller
+            control={control}
+            name="from"
+            render={({ field: { onChange, value, ref } }) => (
+              <TextField
+                ref={ref}
+                label="From"
+                {...TimeFormatProps}
+                onChange={onChange}
+                value={value}
+                helperText={errors.from?.message}
+                error={Boolean(errors.from)}
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="to"
+            render={({ field: { onChange, value }, ref }) => (
+              <TextField
+                ref={ref}
+                label="To"
+                {...TimeFormatProps}
+                onChange={onChange}
+                value={value}
+                helperText={errors.to?.message}
+                error={Boolean(errors.to)}
+              />
+            )}
+          />
+        </div>
         <TextField
           {...register('name')}
           label="Title"
           helperText={errors.name?.message}
           error={Boolean(errors.name)}
         />
-        {/* TODO add time field */}
       </form>
       <InviteeForm onSubmit={handleInviteesSubmit} mainFormErrors={errors} />
       <div className={styles.inviteesWrapper}>
@@ -119,7 +190,8 @@ const InviteeForm = ({ onSubmit, mainFormErrors }) => {
         type: 'custom',
         message: mainFormErrors.invitees.message,
       });
-      if (!mainFormErrors.name) setFocus('email', { shouldSelect: true });
+      if (!mainFormErrors.name && !mainFormErrors.name && !mainFormErrors.to)
+        setFocus('email', { shouldSelect: true });
     }
   }, [mainFormErrors, setError, setFocus]);
 

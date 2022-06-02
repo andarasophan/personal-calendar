@@ -1,21 +1,32 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import styles from './edit.module.scss';
 import Header from '../templates/Header';
 import Footer from '../templates/Footer';
 import { store } from '../../store/store';
-import { EDIT_EVENT, SET_MODAL, SET_STEP } from '../../store/actionTypes';
+import {
+  DELETE_EVENT,
+  EDIT_EVENT,
+  SET_MODAL,
+  SET_STEP,
+} from '../../store/actionTypes';
 import Form from '../templates/Form';
 import { customDateFormat } from '../../utils/helpers/DateHelpers';
+import Button from '../../components/Button';
 
 const FormID = 'editEvent';
 
 const Edit = () => {
   const {
-    state: { selectedDate, selectedEvent },
+    state: { selectedDate, selectedEvent, events },
     dispatch,
   } = useContext(store);
 
-  const handleOnSubmit = ({ name, invitees }) => {
+  const eventsOnDate = useMemo(() => {
+    if (!selectedDate) return [];
+    return events?.[customDateFormat(selectedDate)] ?? [];
+  }, [events, selectedDate]);
+
+  const handleOnSubmit = ({ name, invitees, from, to }) => {
     // TODO handle on middleware
     dispatch({
       type: EDIT_EVENT,
@@ -25,8 +36,8 @@ const Edit = () => {
         id: selectedEvent.id,
         name,
         color: selectedEvent.color,
-        // TODO handle time
-        time: '11.00 - 14.00',
+        from,
+        to,
         invitees,
       },
     });
@@ -35,6 +46,17 @@ const Edit = () => {
 
   const handleOnClose = () => dispatch({ type: SET_MODAL, payload: false });
   const handleOnBack = () => dispatch({ type: SET_STEP, payload: 0 });
+
+  const handleDeleteEvent = () => {
+    // TODO handle on middleware
+    dispatch({
+      type: DELETE_EVENT,
+      key: selectedEvent.id,
+      formattedDate: customDateFormat(selectedDate),
+    });
+    if (eventsOnDate.length <= 1) dispatch({ type: SET_MODAL, payload: false });
+    else dispatch({ type: SET_STEP, payload: 0 });
+  };
 
   return (
     <div className={styles.editRoot}>
@@ -53,6 +75,15 @@ const Edit = () => {
           form: FormID,
           type: 'submit',
         }}
+        otherComponent={
+          <Button
+            type="button"
+            onClick={handleDeleteEvent}
+            className={styles.deleteBtn}
+          >
+            Delete
+          </Button>
+        }
       />
     </div>
   );

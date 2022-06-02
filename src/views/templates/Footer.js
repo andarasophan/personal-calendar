@@ -2,10 +2,11 @@ import React from 'react';
 import styles from './templates.module.scss';
 import Button from '../../components/Button';
 
-const Footer = ({ onClick, buttonTitle, buttonProps }) => {
+const Footer = ({ onClick, buttonTitle, buttonProps, otherComponent }) => {
   return (
     <div className={styles.footer}>
-      <Button {...buttonProps} onClick={onClick}>
+      {otherComponent}
+      <Button className={styles.defaultBtn} {...buttonProps} onClick={onClick}>
         {buttonTitle}
       </Button>
     </div>

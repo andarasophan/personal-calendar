@@ -34,8 +34,11 @@
   justify-content: flex-end;
 
   button {
-    background-color: map.get($theme-colors, "blue-600");
     font-size: .875rem;
+  }
+
+  .defaultBtn {
+    background-color: map.get($theme-colors, "blue-600");
     color: map.get($theme-colors, "white");
   }
 
@@ -87,6 +90,7 @@
 
 .inviteesWrapper {
   margin-top: 1rem;
+
   > p {
     font-size: 0.875rem;
     margin-bottom: 1rem;
@@ -97,6 +101,9 @@
     .customInvitee {
       display: flex;
       align-items: center;
+      &:not(:last-child) {
+        margin-bottom: .25rem;
+      }
 
       .deleteBtn {
         display: flex;
@@ -109,4 +116,11 @@
       }
     }
   }
+}
+
+.timeGroup {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 2rem;
+  margin-bottom: 1rem;
 }

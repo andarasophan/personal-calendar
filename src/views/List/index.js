@@ -56,7 +56,7 @@ const List = () => {
         </div>
         <TransitionGroup className={styles.listWrapper}>
           {eventsOnDate.map((event) => {
-            const { id, name, time, color, invitees } = event;
+            const { id, name, from, to, color, invitees } = event;
             return (
               <CSSTransition
                 key={id}
@@ -72,7 +72,7 @@ const List = () => {
               >
                 <Event
                   name={name}
-                  time={time}
+                  time={`${from} - ${to}`}
                   color={color}
                   invitees={invitees}
                   onEventClick={() => {

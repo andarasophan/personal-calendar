@@ -28,7 +28,7 @@ const Add = () => {
     return events?.[customDateFormat(selectedDate)] ?? [];
   }, [events, selectedDate]);
 
-  const handleOnSubmit = ({ name, invitees }) => {
+  const handleOnSubmit = ({ name, invitees, from, to }) => {
     // only 3 events are allowed
     if (eventsOnDate.length >= 3) return;
 
@@ -40,8 +40,8 @@ const Add = () => {
         id: uniqid(),
         name,
         color: generateUniqColor(eventsOnDate),
-        // TODO handle time
-        time: '11.00 - 14.00',
+        from,
+        to,
         invitees,
       },
     });

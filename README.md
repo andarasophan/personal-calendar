@@ -31,4 +31,6 @@ npm run build
 - [x] Handle delete event
 - [x] Handle edit event
 - [x] Make data persisting
+- [x] Check duplicate invitee
+- [ ] Make card modal position flexible
 - [ ] Make middleware for store

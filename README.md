@@ -1,5 +1,7 @@
 # Personal Calendar
 
+Here's the [demo](https://personal-calendar-by-andara.web.app/)
+
 Stacks:
 
 - [React](https://reactjs.org/)
